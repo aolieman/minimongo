@@ -43,8 +43,10 @@ class _Options(object):
     # Indexes that should be generated for this model
     indices = ()
 
-    # Current database and connection
+    # Current database, user, password, and collection
     database = None
+    user = None
+    password = None
     collection = None
 
     # Should indices be created at startup?
