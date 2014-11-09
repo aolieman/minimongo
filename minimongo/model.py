@@ -5,7 +5,7 @@ import re
 from bson import DBRef, ObjectId
 from minimongo.collection import DummyCollection
 from minimongo.options import _Options
-from pymongo import Connection
+from pymongo import MongoClient
 
 
 class ModelBase(type):
@@ -54,11 +54,9 @@ class ModelBase(type):
         if hostport in mcs._connections:
             connection = mcs._connections[hostport]
         else:
-            # _connect=False option
-            # creates :class:`pymongo.connection.Connection` object without
-            # establishing connection. It's required if there is no running
-            # mongodb at this time but we want to create :class:`Model`.
-            connection = Connection(*hostport)
+            connection = MongoClient(*hostport)
+            if options.database and options.user and options.password:
+                connection[options.database].authenticate(options.user, options.password)
             mcs._connections[hostport] = connection
 
         new_class._meta = options
