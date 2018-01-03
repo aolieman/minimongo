@@ -51,7 +51,7 @@ setup(name="minimongo",
       cmdclass={"test": PyTest},
       platforms=["any"],
 
-      install_requires = ["pymongo<=2.8", "six"],
+      install_requires = ["pymongo>2.6,<4.0", "six"],
       zip_safe=False,
       include_package_data=True,
 
